@@ -1,0 +1,58 @@
+{
+    "products": [
+        {
+            "id": "bermuda-amarela-1",
+            "name": "Bermuda Amarela",
+            "price": "89,90",
+            "source": "http://127.0.0.1:5500/src/assets/img/Bermuda Amarela.svg"
+        },
+        {
+            "id": "bermuda-amarela-2",
+            "name": "Bermuda Amarela",
+            "price": "89,90",
+            "source": "http://127.0.0.1:5500/src/assets/img/Bermuda Amarela.svg"
+        },
+        {
+            "id": "bermuda-amarela-3",
+            "name": "Bermuda Amarela",
+            "price": "89,90",
+            "source": "http://127.0.0.1:5500/src/assets/img/Bermuda Amarela.svg"
+        },
+        {
+            "id": "bermuda-amarela-4",
+            "name": "Bermuda Amarela",
+            "price": "89,90",
+            "source": "http://127.0.0.1:5500/src/assets/img/Bermuda Amarela.svg"
+        },
+        {
+            "id": "bermuda-azul-1",
+            "name": "Bermuda Azul",
+            "price": "59,90",
+            "source": "http://127.0.0.1:5500/src/assets/img/Bermuda Azul Escuro.svg"
+        },
+        {
+            "id": "bermuda-nike-1",
+            "name": "Bermuda Nike",
+            "price": "99,90",
+            "source": "http://127.0.0.1:5500/src/assets/img/Bermuda Azul.svg"
+        },
+        {
+            "id": "bermuda-nike-2",
+            "name": "Bermuda Nike",
+            "price": "79,90",
+            "source": "http://127.0.0.1:5500/src/assets/img/Bermuda Nike Azul.svg"
+        },
+        {
+            "id": "bermuda-nike-3",
+            "name": "Bermuda Azul Escura",
+            "price": "79,90",
+            "source": "http://127.0.0.1:5500/src/assets/img/Bermuda Nike Esportiva.svg"
+        },
+        {
+            "id": "bermuda-nike-4",
+            "name": "Bermuda Nike Esportiva",
+            "price": "109,90",
+            "source": "http://127.0.0.1:5500/src/assets/img/Bermuda Nike.svg"
+        }
+    ]
+}
