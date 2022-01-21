@@ -1,31 +1,15 @@
 <template>
   <div id="app">
-    <Header />
-    <Intro />
-    <Products />
-    <keep-alive>
-      <component :is="'ShoppingCart'"> </component>
-    </keep-alive>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import Vue from 'vue';
-import Header from "./components/Header.vue";
-import Intro from "./components/Intro.vue";
-import Products from './components/Products.vue';
-import ShoppingCart from "./components/ShoppingCart.vue";
-
 export const EventBus = new Vue();
 
 export default {
-  name: "App",
-  components: {
-    Header,
-    Intro,
-    Products,
-    ShoppingCart
-  }
+  name: "App"
 };
 </script>
 

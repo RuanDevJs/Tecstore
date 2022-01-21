@@ -5,7 +5,6 @@
   >
     <div class="modal-container">
       <h1>Carrinho</h1><hr>
-      {{ cart }}
       <div class="list-products" v-if="carrinho.length">
         <div v-for="({ name, price, source }, index) of carrinho" :key="index">
           <div>
@@ -28,8 +27,7 @@
 </template>
 
 <script>
-import { EventBus } from "../App.vue";
-import { mapGetters } from "vuex";
+import { EventBus } from "../../App.vue";
 
 export default {
   name: "ShoppingCart",
@@ -62,9 +60,6 @@ export default {
       this.carrinho = removedProduct;
       localStorage.setItem('carrinho', JSON.stringify(this.carrinho));
     },
-  },
-  computed: {
-    ...mapGetters(['cart'])
   }
 };
 </script>

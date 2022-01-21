@@ -29,9 +29,8 @@
 </template>
 
 <script>
-import "../App.vue";
-import { EventBus } from '../App.vue';
-import { mapActions } from "vuex";
+import "../../App.vue";
+import { EventBus } from '../../App.vue';
 
 export default {
   name: "Products",
@@ -42,19 +41,18 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['add_cart']),
     fetchProducts() {
-      fetch("http://127.0.0.1:5500/src/services/api.json")
+      fetch("http://localhost:3000/products")
         .then((res) => res.json())
         .then((res) => (this.products = res));
     },
     setInCarrinho(name, price, source){
-        this.add_cart({name, price, source})
+        this.carrinho.push({name, price, source})
     },
     getCarrinho() {
       const carrinho = JSON.parse(localStorage.getItem("carrinho"));
       if (carrinho) {
-          this.carrinho = [...carrinho];
+        this.carrinho = [...carrinho];
       }
     },
     

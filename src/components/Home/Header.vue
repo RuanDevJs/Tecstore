@@ -23,13 +23,13 @@
       <nav class="menu-services">
         <ul>
           <li>
-            <img src="../assets/img/account.svg" alt="account" />
+            <img src="../../assets/img/account.svg" alt="account" />
           </li>
           <li>
-            <img src="../assets/img/search.svg" alt="search" />
+            <img src="../../assets/img/search.svg" alt="search" />
           </li>
           <li @click="activeShoppingCart">
-            <img src="../assets/img/shopping-cart.svg" alt="shopping-cart" />
+            <img src="../../assets/img/shopping-cart.svg" alt="shopping-cart" />
           </li>
         </ul>
       </nav>
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { EventBus } from "../App.vue";
+import { EventBus } from "../../App.vue";
 export default {
   name: "Header",
   data() {
