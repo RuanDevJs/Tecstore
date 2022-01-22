@@ -2,15 +2,15 @@
   <header class="header">
     <div class="header-container">
       <div class="logo">
-        <h1>VModel</h1>
+        <h1> <router-link :to="{name: 'Home'}"> VModel </router-link> </h1>
       </div>
       <nav class="menu">
         <ul>
           <li>
-            <a href="#">home</a>
+             <router-link :to="{name: 'Home'}"> home </router-link>
           </li>
           <li>
-            <a href="#">shop</a>
+            <router-link :to="{name: 'Products'}"> shop </router-link>
           </li>
           <li>
             <a href="#">sale</a>
@@ -71,7 +71,7 @@ export default {
   align-items: center;
 }
 
-.logo h1 {
+.logo h1 a{
   font-size: 50px;
   font-weight: 500;
   color: #333;
@@ -80,7 +80,7 @@ export default {
   transition: ease-in-out 0.3s;
 }
 
-.logo h1:hover {
+.logo h1 a:hover {
   color: #1f1f1f;
 }
 
