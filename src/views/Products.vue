@@ -1,12 +1,5 @@
 <template>
   <section class="products">
-    <div class="product-title">
-      <div>
-        <span> Confira As </span>
-        <h1>Mais Vendias</h1>
-      </div>
-      <button @click="$router.push('/products')">Ver todos</button>
-    </div>
     <div class="products-container">
       <div
         v-for="({ name, price, source, id }, index) of products"
@@ -29,7 +22,6 @@
 </template>
 
 <script>
-import "../../App.vue";
 
 export default {
   name: "Products",
@@ -47,7 +39,6 @@ export default {
     },
     setInCarrinho(name, price, source, id){
         this.carrinho.push({name, price, source})
-        localStorage.setItem("carrinho", JSON.stringify(this.carrinho));
         this.$router.push(`/product/${id}`);
     },
     getCartInLocalStorage(){
@@ -60,13 +51,19 @@ export default {
   created() {
     this.fetchProducts();
     this.getCartInLocalStorage();
+  },
+
+  watch: {
+    carrinho(){
+      localStorage.setItem("carrinho", JSON.stringify(this.carrinho));
+    }
   }
 };
 </script>
 
 <style>
 .products {
-  margin-top: 160px;
+  margin-top: 50px;
   padding: 15px;
 }
 

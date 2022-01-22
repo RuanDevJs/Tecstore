@@ -1,15 +1,20 @@
 <template>
   <div id="app">
+    <Header />
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 import Vue from 'vue';
+import Header from './components/Home/Header.vue';
 export const EventBus = new Vue();
 
 export default {
-  name: "App"
+  name: "App",
+  components: {
+    Header
+  }
 };
 </script>
 

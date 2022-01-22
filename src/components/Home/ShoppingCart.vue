@@ -43,6 +43,7 @@ export default {
       this.disabled = false;
       this.active = true;
     });
+    this.getCartInLocalStorage();
   },
   methods: {
     disableModal({ currentTarget, target }) {
@@ -60,6 +61,12 @@ export default {
       this.carrinho = removedProduct;
       localStorage.setItem('carrinho', JSON.stringify(this.carrinho));
     },
+     getCartInLocalStorage(){
+      const products = JSON.parse(window.localStorage.getItem('carrinho'));
+      if(products){
+        this.carrinho.push(...products)
+      }
+    }
   }
 };
 </script>

@@ -5,6 +5,8 @@ Vue.use(Router);
 
 // @Components
 import Home from "../views/Home";
+import Products from "../views/Products";
+import Product from "../views/Product";
 
 export default new Router({
     mode: "history",
@@ -13,6 +15,18 @@ export default new Router({
             path: "/",
             name: "Home",
             component: Home
-        }
+        },
+        {
+            path: '/products',
+            name: "Products",
+            props: true,
+            component: Products
+        },
+        {
+            path: '/product/:product',
+            name: "Product",
+            props: true,
+            component: Product
+        },
     ]
 });
