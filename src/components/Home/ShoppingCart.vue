@@ -4,17 +4,24 @@
     @click="disableModal"
   >
     <div class="modal-container">
-      <h1>Carrinho</h1><hr>
+      <h1>Carrinho</h1>
+      <hr />
       <div class="list-products" v-if="carrinho.length">
-        <div v-for="({ name, price, source }, index) of carrinho" :key="index">
-          <div>
+        <div
+          class="product"
+          v-for="({ name, price, source }, index) of carrinho"
+          :key="index"
+        >
+          <div class="product-image">
             <img :src="source" :alt="name" />
           </div>
-          <h1>{{ name }}</h1>
-          <div class="price">
-            <div :class="['mouseArea']">
-              <p>R$ {{ price }}</p>
-              <a href="#" @click.prevent="removerCarrinho(index)">Remover</a>
+          <div class="product-info">
+            <h1>{{ name }}</h1>
+            <div class="price">
+              <div :class="['mouseArea']">
+                <p>R$ {{ price }}</p>
+                <a href="#" @click.prevent="removerCarrinho(index)">Remover</a>
+              </div>
             </div>
           </div>
         </div>
@@ -54,24 +61,24 @@ export default {
         this.disabled = true;
       }
     },
-    removerCarrinho(productIndex){
+    removerCarrinho(productIndex) {
       const removedProduct = this.carrinho.filter((el, index) => {
-          return productIndex !== index;
+        return productIndex !== index;
       });
       this.carrinho = removedProduct;
-      localStorage.setItem('carrinho', JSON.stringify(this.carrinho));
+      localStorage.setItem("carrinho", JSON.stringify(this.carrinho));
     },
-     getCartInLocalStorage(){
-      const products = JSON.parse(window.localStorage.getItem('carrinho'));
-      if(products){
-        this.carrinho.push(...products)
+    getCartInLocalStorage() {
+      const products = JSON.parse(window.localStorage.getItem("carrinho"));
+      if (products) {
+        this.carrinho.push(...products);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style type="scopped">
+<style scoped>
 .modal {
   position: fixed;
   top: 0;
@@ -84,11 +91,11 @@ export default {
 }
 
 .modal h1 {
-    padding: 20px 0 10px 0;
-    font-size: 22px;
-    font-weight: 300;
-    color: #333;
-    text-transform: capitalize;
+  padding: 20px 0 10px 0;
+  font-size: 22px;
+  font-weight: 300;
+  color: #333;
+  text-transform: capitalize;
 }
 
 .modal.actived {
@@ -102,7 +109,7 @@ export default {
   bottom: 0;
   right: 0;
 
-  background: #FEFBFB;
+  background: #fefbfb;
   width: 0;
   height: 100%;
 
@@ -125,7 +132,31 @@ export default {
   padding: 16px;
 }
 
-.list-products > div {
+.product {
+  margin: 12px 0;
+  padding: 6px 0;
+
+  border-radius: 12px;
+  background: #f8f8f8;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.product-image {
+  flex: 1;
+  margin: 0;
+}
+
+.product img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+}
+
+/* .list-products > div {
   margin: 10px 0 5px 0;
 }
 
@@ -135,19 +166,26 @@ export default {
   display: block;
 }
 
+.list-products img {
+  max-width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
 .list-products h1 {
   font-size: 16px;
   font-weight: 400;
   color: #333;
   margin: 8px 0 4px 0;
-}
+} */
 
-.price {
+/* .price {
   height: 50px;
   overflow-y: hidden;
-}
+} */
 
-.list-products p {
+/* .list-products p {
   font-size: 16px;
   font-weight: 400;
   color: #333;
@@ -173,27 +211,27 @@ export default {
 
   text-decoration: underline 1px #1f1f1f;
   text-underline-offset: 4px;
-}
+} */
 
-.cart-empty {
+/* .cart-empty {
   font-size: 18px;
   font-weight: 300;
   color: #333;
   margin-top: 50px;
-}
+} */
 
 @keyframes AnimateModal {
   from {
     width: 0;
   }
   to {
-    width: 320px;
+    width: 460px;
   }
 }
 
 @keyframes DisableModal {
   from {
-    width: 320px;
+    width: 460px;
   }
   to {
     width: 0px;

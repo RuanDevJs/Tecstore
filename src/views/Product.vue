@@ -91,6 +91,7 @@ export default {
   watch: {
     cep() {
       if (this.cep.length === 8) {
+        this.cep = `${this.cep.substr(0,5)}-${this.cep.substr(5,9)}`;
         this.loading = true;
         this.cepResponse = false;
         console.log('mudando')

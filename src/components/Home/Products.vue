@@ -64,7 +64,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .products {
   margin-top: 160px;
   padding: 15px;

@@ -54,7 +54,7 @@ export default {
 };
 </script>
 
-<style type="scopped">
+<style scoped>
 .header {
   padding: 16px;
   border: 2px solid #ffff;

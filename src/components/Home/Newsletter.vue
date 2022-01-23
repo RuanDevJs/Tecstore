@@ -17,6 +17,7 @@
         <img
           src="../../assets/img/NicePng_t-shirts-png_814209.jpg"
           alt="banner"
+          draggable="false"
         />
       </div>
     </div>
@@ -29,7 +30,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .newsletter {
   padding: 10px 0;
 }
