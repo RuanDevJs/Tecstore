@@ -43,8 +43,10 @@ export default {
         this.carrinho.push(...products);
       }
     },
-    disableModal(){
-      EventBus.$emit("update:component", null);
+    disableModal({ currentTarget, target}){
+      if(currentTarget === target){
+        EventBus.$emit("update:component", null);
+      }
     }
   },
   mounted() {
