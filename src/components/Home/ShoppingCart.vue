@@ -1,41 +1,32 @@
 <template>
-  <section
-    :class="['modal', { actived: active, disabled: disabled }]"
-    @click="disableModal"
-  >
-    <div class="modal-container">
-      <h1>Carrinho</h1>
-      <hr />
-      <div class="list-products" v-if="carrinho.length">
-        <div
-          class="product"
-          v-for="({ name, price, source }, index) of carrinho"
-          :key="index"
-        >
-          <div class="product-image">
-            <img :src="source" :alt="name" />
-          </div>
+  <section class="shopping-cart" @click="disableModal">
+    <div class="shopping-cart-container">
+      <div class="shopping-cart-title">
+        <h1>Carrinho</h1>
+      </div>
+      <div class="shopping-cart-products">
+        <div class="product" v-for="({name, price, source, id}, index) of carrinho" :key="index">
+          <img :src="source" :alt="name">
           <div class="product-info">
-            <h1>{{ name }}</h1>
-            <div class="price">
-              <div :class="['mouseArea']">
-                <p>R$ {{ price }}</p>
-                <a href="#" @click.prevent="removerCarrinho(index)">Remover</a>
-              </div>
-            </div>
+            <router-link :to="`/product/${id}`">{{  name }}</router-link>
+            <p>R$ {{ price }}</p>
+            <span>Remover</span>
           </div>
         </div>
       </div>
-      <div v-else>
-        <p class="cart-empty">Nenhum produto :/</p>
+      <div class="subtotal">
+       <h2>Subtotal {{ total }} </h2>
+      </div>
+      <div class="close-modal">
+        <button>Continuar Navegando</button>
+        <button>Continuar Navegando</button>
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import { EventBus } from "../../App.vue";
-
+import EventBus from '../../services/eventBus';
 export default {
   name: "ShoppingCart",
   data: function () {
@@ -45,196 +36,226 @@ export default {
       carrinho: [],
     };
   },
-  mounted() {
-    EventBus.$on("activedShoppingCart", () => {
-      this.disabled = false;
-      this.active = true;
-    });
-    this.getCartInLocalStorage();
-  },
   methods: {
-    disableModal({ currentTarget, target }) {
-      if (currentTarget === target) {
-        setTimeout(() => {
-          this.active = false;
-        }, 300);
-        this.disabled = true;
-      }
-    },
-    removerCarrinho(productIndex) {
-      const removedProduct = this.carrinho.filter((el, index) => {
-        return productIndex !== index;
-      });
-      this.carrinho = removedProduct;
-      localStorage.setItem("carrinho", JSON.stringify(this.carrinho));
-    },
-    getCartInLocalStorage() {
-      const products = JSON.parse(window.localStorage.getItem("carrinho"));
-      if (products) {
+    getProducts(){
+      const products = JSON.parse(localStorage.getItem("carrinho"));
+      if(products){
         this.carrinho.push(...products);
       }
     },
+    disableModal(){
+      EventBus.$emit("update:component", null);
+    }
   },
+  mounted() {
+    this.getProducts();
+  },
+  computed: {
+    total(){
+       const price = this.carrinho.reduce((acc, item) => {
+        const price = +item.price.replace(',', '.');
+        acc += price;
+        return acc;
+      }, 0);
+      return `R$ ${price}`;
+    }
+  }
 };
 </script>
 
 <style scoped>
-.modal {
+.shopping-cart {
   position: fixed;
-  top: 0;
-  bottom: 0;
-  height: 100vh;
-  width: 100%;
-  background: transparent;
 
-  display: none;
-}
-
-.modal h1 {
-  padding: 20px 0 10px 0;
-  font-size: 22px;
-  font-weight: 300;
-  color: #333;
-  text-transform: capitalize;
-}
-
-.modal.actived {
-  display: block;
-}
-
-.modal-container {
-  text-align: center;
-  position: absolute;
   top: 0;
   bottom: 0;
   right: 0;
-
-  background: #fefbfb;
-  width: 0;
-  height: 100%;
-
-  overflow-y: scroll;
-  transition: ease-in-out 0.3s;
-
-  box-shadow: 0 0 16px rgba(0, 0, 0, 16%);
-  border-top-left-radius: 10px;
-}
-
-.modal.actived > .modal-container {
-  animation: AnimateModal forwards 0.3s;
-}
-
-.modal.disabled > .modal-container {
-  animation: DisableModal forwards 0.3s;
-}
-
-.list-products {
-  padding: 16px;
-}
-
-.product {
-  margin: 12px 0;
-  padding: 6px 0;
-
-  border-radius: 12px;
-  background: #f8f8f8;
+  left: 0;
 
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100vh;
 }
 
-.product-image {
-  flex: 1;
-  margin: 0;
+.shopping-cart-container {
+  padding: 32px;
+  width: 460px;
+  height: 100vh;
+  background: #ffffff;
+  overflow-y: auto;
+  animation: Open 0.5s forwards;
+}
+
+.shopping-cart-title h1 {
+  font-size: 32px;
+  font-weight: 300;
+  color: #333;
+}
+
+.shopping-cart-title h1::after {
+  content: "";
+  width: 100%;
+  height: 1px;
+  background: #f2f2f2;
+  display: block;
+}
+
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #c2c2c2; 
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c9c9c9; 
+}
+
+.shopping-cart-products {
+  margin: 32px 0;
+}
+
+.product {
+  padding: 18px;
+  margin: 18px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  background: #F8F8F8;
+}
+
+.product-info a{
+  font-size: 18px;
+  font-weight: 400;
+  color: #333;
+}
+
+.product-info p{
+  font-size: 16px;
+  font-weight: 400;
+  color: #1f1f1f;
 }
 
 .product img {
-  width: 100%;
-  height: 160px;
+  margin-right: 16px;
+  width: 120px;
+  height: 120px;
   object-fit: cover;
+}
+
+.product span {
+  text-align: center;
   display: block;
-}
+  padding: 5px;
 
-/* .list-products > div {
-  margin: 10px 0 5px 0;
-}
+  width: 120px;
+  background: #333;
 
-.list-products img {
-  max-width: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.list-products img {
-  max-width: 100%;
-  height: 220px;
-  object-fit: cover;
-  display: block;
-}
-
-.list-products h1 {
   font-size: 16px;
-  font-weight: 400;
-  color: #333;
-  margin: 8px 0 4px 0;
-} */
-
-/* .price {
-  height: 50px;
-  overflow-y: hidden;
-} */
-
-/* .list-products p {
-  font-size: 16px;
-  font-weight: 400;
-  color: #333;
-  cursor: pointer;
-
-  display: block;
-  max-width: 50%;
-  margin: 0 auto;
-
-  padding: 12px;
-}
-
-.list-products a {
-  display: block;
-  max-width: 50%;
-  margin: 0 auto;
-  font-size: 16px;
-  font-weight: 500;
-  color: #1f1f1f;
-  cursor: pointer;
-
-  padding: 12px;
-
-  text-decoration: underline 1px #1f1f1f;
-  text-underline-offset: 4px;
-} */
-
-/* .cart-empty {
-  font-size: 18px;
   font-weight: 300;
-  color: #333;
-  margin-top: 50px;
-} */
+  color: #f9f9f9;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: ease-in-out .3s;
+}
 
-@keyframes AnimateModal {
+.product span:hover {
+  background: #1f1f1f;
+}
+
+.subtotal {
+  padding: 16px 0 0px 0;
+}
+
+.subtotal h2::before, .subtotal h2::after {
+  content: "";
+  margin: 16px 0;
+
+  display: block;
+  width: 100%;
+  height: 1px;
+
+  background: #f2f2f2;
+}
+
+.subtotal h2 {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 400;
+  color: #1f1f1f !important;
+}
+
+.close-modal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 16px 0 50px;
+  margin: 16px 0;
+}
+
+.close-modal button:nth-child(1){
+  border: 0;
+  outline: 0;
+
+  width: 220px;
+  padding: 12px 6px;
+  background: #F2F2F2;
+
+  border-radius: 4px;
+
+  font-family: "Poppins";
+  font-size: 14px;
+  font-weight: 400 !important;
+  color: #333;
+  cursor: pointer;
+}
+
+.close-modal button:nth-child(2){
+  margin-left: 18px;
+  border: 0;
+  outline: 0;
+
+  width: 220px;
+  padding: 12px 6px;
+  background: #1f1f1f;
+
+  border-radius: 4px;
+
+  font-family: "Poppins";
+  font-size: 14px;
+  font-weight: 400 !important;
+  color: #FEFBFB;
+  cursor: pointer;
+}
+
+@keyframes Open {
   from {
+    opacity: 0;
     width: 0;
   }
   to {
     width: 460px;
+    opacity: 1;
   }
 }
 
-@keyframes DisableModal {
+@keyframes Close {
   from {
     width: 460px;
+    opacity: 1;
   }
   to {
-    width: 0px;
+    opacity: 0;
+    width: 0;
   }
 }
 </style>

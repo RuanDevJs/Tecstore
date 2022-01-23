@@ -22,13 +22,13 @@
       </nav>
       <nav class="menu-services">
         <ul>
-          <li>
+          <li @click="handleClick('Account')">
             <img src="../../assets/img/account.svg" alt="account" />
           </li>
-          <li>
+          <li @click="handleClick('Search')">
             <img src="../../assets/img/search.svg" alt="search" />
           </li>
-          <li @click="activeShoppingCart">
+          <li @click="handleClick('ShoppingCart')">
             <img src="../../assets/img/shopping-cart.svg" alt="shopping-cart" />
           </li>
         </ul>
@@ -38,17 +38,13 @@
 </template>
 
 <script>
-import { EventBus } from "../../App.vue";
+import EventBus from "../../services/eventBus";
+
 export default {
   name: "Header",
-  data() {
-    return {
-      menu: null,
-    };
-  },
   methods: {
-    activeShoppingCart(){
-      EventBus.$emit("activedShoppingCart");
+    handleClick(component){
+      EventBus.$emit("update:component", component);
     }
   }
 };

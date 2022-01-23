@@ -46,7 +46,7 @@ export default {
         .then((res) => (this.products = res));
     },
     setInCarrinho(name, price, source, id){
-        this.carrinho.push({name, price, source})
+        this.carrinho.push({name, price, source, id})
         localStorage.setItem("carrinho", JSON.stringify(this.carrinho));
         this.$router.push(`/product/${id}`);
     },

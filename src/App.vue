@@ -6,9 +6,7 @@
 </template>
 
 <script>
-import Vue from 'vue';
 import Header from './components/Home/Header.vue';
-export const EventBus = new Vue();
 
 export default {
   name: "App",
